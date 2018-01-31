@@ -55,4 +55,7 @@ dependencies {
 
     //数据库框架
     compile 'org.greenrobot:greendao:3.2.0'
+
+    //沉浸式状态栏/变色状态栏
+    compile 'com.jaeger.statusbarutil:library:1.4.0'
 }

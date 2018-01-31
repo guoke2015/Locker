@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.KeyEvent;
 
 import com.lwx.locker.R;
+import com.lwx.locker.util.AppManager;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 /**
@@ -17,7 +18,7 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
  * </pre>
  */
 
-public abstract class BaseActivity<V,P extends BasePresenter<V>> extends RxAppCompatActivity {
+public abstract class BaseActivity<V, P extends BasePresenter<V>> extends RxAppCompatActivity {
 
     //表示层的引用
     public P mPresenter;
@@ -25,12 +26,14 @@ public abstract class BaseActivity<V,P extends BasePresenter<V>> extends RxAppCo
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter= setPresenter();
+        AppManager.getAppManager().addActivity(this);
+        mPresenter = setPresenter();
         mPresenter.attachView((V) this);
     }
 
     /**
      * 创建表示层
+     *
      * @return presenter
      */
     protected abstract P setPresenter();
@@ -39,6 +42,7 @@ public abstract class BaseActivity<V,P extends BasePresenter<V>> extends RxAppCo
     protected void onDestroy() {
         super.onDestroy();
         mPresenter.detachView();
+        AppManager.getAppManager().finishActivity(this);
     }
 
     @Override

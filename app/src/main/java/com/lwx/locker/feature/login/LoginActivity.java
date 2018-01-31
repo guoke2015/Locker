@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.jaeger.library.StatusBarUtil;
 import com.lwx.locker.R;
 import com.lwx.locker.base.BaseActivity;
 import com.lwx.locker.data.local.UserInfo;
@@ -19,13 +20,14 @@ import com.trello.rxlifecycle2.LifecycleTransformer;
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends BaseActivity<LoginView, LoginPresenter<LoginView>> implements LoginView, View.OnClickListener {
-    private TextView phone, password;
+    private TextView phone, password, register, forgetPassword;
     private Button loginBt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        StatusBarUtil.setTranslucent(this, 50);
 
         init();
         setListener();
@@ -33,18 +35,27 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter<LoginV
 
 
     private void init() {
-
+        phone = findViewById(R.id.phone);
+        password = findViewById(R.id.password);
+        register = findViewById(R.id.register);
+        forgetPassword = findViewById(R.id.forget_password);
+        loginBt = findViewById(R.id.login);
         ToastUtils.init(true);
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            Bundle bundle = intent.getBundleExtra("bundle");
+            if (bundle != null) {
+                UserInfo userInfo = bundle.getParcelable("userInfo");
+                phone.setText(userInfo.getPhone());
+            }
+        }
     }
 
     private void setListener() {
         loginBt.setOnClickListener(this);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mPresenter.autoLogin();
+        register.setOnClickListener(this);
+        forgetPassword.setOnClickListener(this);
     }
 
     @Override
@@ -91,7 +102,13 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter<LoginV
     public void toMainActivity(UserInfo userInfo) {
         //更新UserInfo到数据库，并跳转到MainActivity
         mPresenter.update(userInfo);
-        startActivity(new Intent(this, MainActivity.class));
+        Intent intent = new Intent(this, MainActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("userInfo", userInfo);
+        intent.putExtra("bundle", bundle);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
+        finish();
     }
 
     @Override
@@ -125,8 +142,16 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter<LoginV
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case 1:
+            case R.id.login:
                 submit();
+                break;
+            case R.id.register:
+
+                break;
+            case R.id.forget_password:
+
+                break;
+            default:
                 break;
         }
     }

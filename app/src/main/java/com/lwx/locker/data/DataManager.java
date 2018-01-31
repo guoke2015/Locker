@@ -3,6 +3,7 @@ package com.lwx.locker.data;
 import com.lwx.locker.LockerApplication;
 import com.lwx.locker.data.local.GreenDaoHelper;
 
+import org.greenrobot.greendao.Property;
 import org.greenrobot.greendao.query.WhereCondition;
 
 import java.util.List;
@@ -74,11 +75,11 @@ public class DataManager<T> {
 
     /**
      * 查询所有数据
-     *
      * @param t
+     * @param property 按指定字段降序，如UserInfoDao.Properties.Usertime
      * @return
      */
-    public List<T> queryAllData(T t) {
-        return mGreenDaoHelper.queryAllData(t);
+    public List<T> queryAllData(T t, Property property) {
+        return mGreenDaoHelper.queryAllData(t,property);
     }
 }

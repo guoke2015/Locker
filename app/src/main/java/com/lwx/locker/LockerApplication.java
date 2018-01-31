@@ -2,6 +2,7 @@ package com.lwx.locker;
 
 import android.app.Application;
 
+import com.lwx.locker.custom.crash.CrashHandler;
 import com.lwx.locker.data.local.GreenDaoHelper;
 import com.mob.MobSDK;
 
@@ -21,6 +22,7 @@ public class LockerApplication extends Application {
 
     /**
      * 获取Application实例
+     *
      * @return
      */
     public static LockerApplication getInstance() {
@@ -33,14 +35,16 @@ public class LockerApplication extends Application {
         lockerApplication = this;
         //初始化MobSDK
         MobSDK.init(this);
-        mGreenDaoHelper=GreenDaoHelper.getInstance();
+        mGreenDaoHelper = GreenDaoHelper.getInstance();
+        CrashHandler.getInstance().init(this);
     }
 
     /**
      * 获取GreenDao帮助类
+     *
      * @return
      */
-    public GreenDaoHelper getGreenDaoHelper(){
+    public GreenDaoHelper getGreenDaoHelper() {
         return mGreenDaoHelper;
     }
 }

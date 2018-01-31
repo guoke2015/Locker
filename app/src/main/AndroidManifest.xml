@@ -2,10 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.lwx.locker">
 
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
-    <uses-permission android:name="android.permission.READ_PROFILE"/>
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <!-- 允许联网 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!--允许读写sd卡(外置)-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!--允许读写sd卡(内置)-->
+    <permission android:name="android.permission.WRITE_MEDIA_STORAGE"/>
+
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
 
     <application
         android:name=".LockerApplication"
@@ -21,6 +25,11 @@
         <activity
             android:name=".feature.login.LoginActivity"
             android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".feature.splash.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.AppStartLoad">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

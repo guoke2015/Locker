@@ -3,6 +3,7 @@ package com.lwx.locker.data.local;
 import com.lwx.locker.LockerApplication;
 
 import org.greenrobot.greendao.AbstractDao;
+import org.greenrobot.greendao.Property;
 import org.greenrobot.greendao.query.Query;
 import org.greenrobot.greendao.query.WhereCondition;
 
@@ -92,15 +93,15 @@ public class GreenDaoHelper<T> {
 
     /**
      * 查询所有数据
-     *
      * @param t
+     * @param property 按指定字段降序，如UserInfoDao.Properties.Usertime
      * @return
      */
-    public List<T> queryAllData(T t) {
+    public List<T> queryAllData(T t, Property property) {
         if (getDao(t.getClass()) == null) {
             return null;
         } else {
-            Query<T> query = getDao(t.getClass()).queryBuilder().build();
+            Query<T> query = getDao(t.getClass()).queryBuilder().orderDesc(property).build();
             return query.list();
         }
     }
