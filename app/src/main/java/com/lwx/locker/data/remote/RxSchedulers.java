@@ -55,8 +55,8 @@ public class RxSchedulers {
                                 baseView.hideLoading();
                             }
                         })
-                        .compose(baseView.bindLifecycle())
-                        .observeOn(AndroidSchedulers.mainThread());
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .compose(baseView.bindLifecycle());
             }
         };
     }
@@ -86,14 +86,15 @@ public class RxSchedulers {
                                 baseView.hideLoading();
                             }
                         })
-                        .compose(baseView.bindLifecycle())
-                        .observeOn(AndroidSchedulers.mainThread());
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .compose(baseView.bindLifecycle());
             }
         };
     }
 
     /**
      * Observable基本使用
+     *
      * @param t
      * @param <T>
      * @return

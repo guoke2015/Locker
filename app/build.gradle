@@ -4,14 +4,6 @@ apply plugin: 'com.mob.sdk'
 apply plugin: 'org.greenrobot.greendao'
 
 // 在MobSDK的扩展中注册SMSSDK的相关信息
-MobSDK {
-    appKey "240261bb901f8"
-    appSecret "ddbfc841fcbc89a50ea7c6850b01e982"
-
-    SMSSDK {
-        gui false
-    }
-}
 
 android {
     compileSdkVersion 26
@@ -34,6 +26,15 @@ android {
         schemaVersion 1
         daoPackage 'com.lwx.locker.data.local'
         targetGenDir 'src/main/java'
+    }
+
+    MobSDK {
+        appKey "240261bb901f8"
+        appSecret "ddbfc841fcbc89a50ea7c6850b01e982"
+
+        SMSSDK {
+            gui false
+        }
     }
 }
 
@@ -58,4 +59,7 @@ dependencies {
 
     //沉浸式状态栏/变色状态栏
     compile 'com.jaeger.statusbarutil:library:1.4.0'
+
+    //android6.0权限管理框架rxpermissions2
+    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
 }

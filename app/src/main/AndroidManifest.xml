@@ -4,11 +4,11 @@
 
     <!-- 允许联网 -->
     <uses-permission android:name="android.permission.INTERNET"/>
-    <!--允许读写sd卡(外置)-->
+    <!-- 允许读写sd卡(外置) -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <!--允许读写sd卡(内置)-->
+    <!-- 允许读写sd卡(内置) -->
     <permission android:name="android.permission.WRITE_MEDIA_STORAGE"/>
-
+    <!-- 允许程序调用killBackgroundProcesses(String).方法结束后台进程 -->
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
 
     <application
@@ -35,6 +35,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".feature.register.RegisterActivity">
         </activity>
     </application>
 

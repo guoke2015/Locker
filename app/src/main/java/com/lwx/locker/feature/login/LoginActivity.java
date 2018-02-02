@@ -12,6 +12,7 @@ import com.lwx.locker.R;
 import com.lwx.locker.base.BaseActivity;
 import com.lwx.locker.data.local.UserInfo;
 import com.lwx.locker.feature.MainActivity;
+import com.lwx.locker.feature.register.RegisterActivity;
 import com.lwx.locker.util.RegexUtil;
 import com.lwx.locker.util.ToastUtils;
 import com.trello.rxlifecycle2.LifecycleTransformer;
@@ -128,7 +129,7 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter<LoginV
         if (TextUtils.isEmpty(phone.getText())) {
             ToastUtils.error(this, "手机号不能为空");
             return;
-        } else if (!RegexUtil.isMobileNumber(phone.getText().toString())) {
+        } else if (!RegexUtil.isMobileNumber(phone.getText().toString().trim())) {
             ToastUtils.error(this, "手机号不正确");
             return;
         }
@@ -146,7 +147,8 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter<LoginV
                 submit();
                 break;
             case R.id.register:
-
+                startActivity(new Intent(this, RegisterActivity.class));
+                overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
                 break;
             case R.id.forget_password:
 
