@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.jaeger.library.StatusBarUtil;
 import com.lwx.locker.R;
 import com.lwx.locker.base.BaseActivity;
+import com.lwx.locker.custom.dialog.Mydialog;
 import com.lwx.locker.data.local.UserInfo;
 import com.lwx.locker.feature.MainActivity;
 import com.lwx.locker.util.ConstantUtils;
@@ -56,6 +57,8 @@ public class RegisterActivity extends BaseActivity<RegisterView, RegisterPresent
      */
     private TextView mGetCode;
 
+    private Mydialog mydialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +80,7 @@ public class RegisterActivity extends BaseActivity<RegisterView, RegisterPresent
         mAgree = findViewById(R.id.agree);
 
         ToastUtils.init(true);
+        mydialog = new Mydialog(this);
     }
 
     private void setListener() {
@@ -93,12 +97,17 @@ public class RegisterActivity extends BaseActivity<RegisterView, RegisterPresent
 
     @Override
     public void showLoading() {
-
+        if (!mydialog.isShowing()) {
+            mydialog.show();
+            mydialog.setMessage("正在注册...");
+        }
     }
 
     @Override
     public void hideLoading() {
-
+        if (mydialog.isShowing()) {
+            mydialog.dismiss();
+        }
     }
 
     @Override

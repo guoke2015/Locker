@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.jaeger.library.StatusBarUtil;
 import com.lwx.locker.R;
 import com.lwx.locker.base.BaseActivity;
+import com.lwx.locker.custom.dialog.Mydialog;
 import com.lwx.locker.data.local.UserInfo;
 import com.lwx.locker.feature.MainActivity;
 import com.lwx.locker.feature.register.RegisterActivity;
@@ -23,6 +24,7 @@ import com.trello.rxlifecycle2.LifecycleTransformer;
 public class LoginActivity extends BaseActivity<LoginView, LoginPresenter<LoginView>> implements LoginView, View.OnClickListener {
     private TextView phone, password, register, forgetPassword;
     private Button loginBt;
+    private Mydialog mydialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,8 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter<LoginV
                 phone.setText(userInfo.getPhone());
             }
         }
+
+        mydialog = new Mydialog(this);
     }
 
     private void setListener() {
@@ -66,12 +70,17 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter<LoginV
 
     @Override
     public void showLoading() {
-
+        if (!mydialog.isShowing()) {
+            mydialog.show();
+            mydialog.setMessage("正在登录...");
+        }
     }
 
     @Override
     public void hideLoading() {
-
+        if (mydialog.isShowing()) {
+            mydialog.dismiss();
+        }
     }
 
     @Override
