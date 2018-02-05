@@ -1,9 +1,11 @@
 package com.lwx.locker.custom.dialog;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
+import android.support.annotation.Nullable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lwx.locker.R;
@@ -18,15 +20,18 @@ import com.lwx.locker.R;
  * </pre>
  */
 
-public class Mydialog extends AlertDialog {
+public class Mydialog extends ProgressDialog {
     private TextView dialogMessage;
+    private ImageView loadingImg;
+    private AnimationDrawable animation;
 
-    public Mydialog(@NonNull Context context) {
-        super(context);
+    public Mydialog(Context context) {
+        super(context,R.style.dialogTransparent);
+        setCanceledOnTouchOutside(false);
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_dialog);
 
@@ -34,13 +39,32 @@ public class Mydialog extends AlertDialog {
     }
 
     private void init() {
+        loadingImg = findViewById(R.id.dialog_img);
         dialogMessage = findViewById(R.id.dialog_message);
+
+        loadingImg.setBackgroundResource(R.drawable.frame_dialog);
+        animation = (AnimationDrawable) loadingImg.getBackground();
+        loadingImg.post(new Runnable() {
+            @Override
+            public void run() {
+                animation.start();
+            }
+        });
+    }
+
+    @Override
+    public void dismiss() {
+        if (animation.isRunning()) {
+            animation.stop();
+        }
+        super.dismiss();
     }
 
     public void setMessage(String message) {
         dialogMessage.setText(message);
     }
 
+    //
     public void setTouchOutside(boolean isCannot) {
         setCanceledOnTouchOutside(isCannot);
     }
