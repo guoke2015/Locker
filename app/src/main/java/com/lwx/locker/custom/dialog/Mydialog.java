@@ -1,10 +1,10 @@
 package com.lwx.locker.custom.dialog;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,13 +20,13 @@ import com.lwx.locker.R;
  * </pre>
  */
 
-public class Mydialog extends ProgressDialog {
+public class Mydialog extends AlertDialog {
     private TextView dialogMessage;
     private ImageView loadingImg;
     private AnimationDrawable animation;
 
     public Mydialog(Context context) {
-        super(context,R.style.dialogTransparent);
+        super(context, R.style.dialogTransparent);
         setCanceledOnTouchOutside(false);
     }
 
